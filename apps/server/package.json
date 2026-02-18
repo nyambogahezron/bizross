@@ -1,24 +1,22 @@
 {
-	"name": "@repo/server",
-	"version": "0.0.0",
-	"main": "dist/index.js",
+	"name": "server",
+	"module": "index.ts",
+	"type": "module",
+	"private": true,
 	"scripts": {
-		"dev": "ts-node-dev src/index.ts",
-		"build": "tsc",
-		"start": "node dist/index.js",
+    "dev": "bun run --hot src/index.ts",
 		"lint": "biome lint .",
 		"lint:fix": "biome lint --write .",
 		"format": "biome format --write .",
 		"clean": "rm -rf dist"
 	},
-	"dependencies": {
-		"fastify": "^4.0.0",
-		"@repo/types": "workspace:*",
-		"@repo/auth-service": "workspace:*",
-		"@repo/inventory-service": "workspace:*"
-	},
+  "dependencies": {
+    "hono": "^4.11.10"
+  },
 	"devDependencies": {
-		"typescript": "^5.0.0",
-		"ts-node-dev": "^2.0.0"
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
 	}
 }
