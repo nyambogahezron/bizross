@@ -1,0 +1,9 @@
+{
+  "name": "@pos/eslint-config",
+  "version": "0.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0"
+  }
+}

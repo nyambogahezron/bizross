@@ -1,0 +1,17 @@
+{
+  "name": "@pos/dashboard",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "@pos/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0"
+  }
+}

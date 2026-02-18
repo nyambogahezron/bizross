@@ -1,0 +1,24 @@
+# Defaults
+node_modules
+.pnpm-store
+
+# Dist/Build
+dist
+build
+.next
+.turbo
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

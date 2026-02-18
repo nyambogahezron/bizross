@@ -1,0 +1,15 @@
+{
+  "name": "@pos/mobile",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios"
+  },
+  "dependencies": {
+    "expo": "~50.0.0",
+    "react-native": "0.73.0",
+    "react": "18.2.0"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@pos/orders-service",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev src/index.ts"
+  },
+  "dependencies": {
+    "fastify": "^4.0.0",
+    "@pos/types": "workspace:*",
+    "@pos/database": "workspace:*",
+    "@pos/validations": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node-dev": "^2.0.0"
+  }
+}
