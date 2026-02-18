@@ -17,7 +17,7 @@ Thank you for your interest in contributing! This is a monorepo managed by **Tur
 
 3.  **Development**:
     *   Run all apps: `pnpm dev`
-    *   Run specific app: `pnpm --filter @pos/web dev`
+    *   Run specific app: `pnpm --filter @repo/web dev`
 
 ## Directory Structure
 

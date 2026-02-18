@@ -1,17 +1,22 @@
 {
-  "name": "@pos/dashboard",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "latest",
-    "react-dom": "latest",
-    "@pos/ui": "workspace:*"
-  },
-  "devDependencies": {
-    "vite": "^4.0.0"
-  }
+	"name": "@repo/dashboard",
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"start": "vite preview",
+		"preview": "vite preview",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write .",
+		"clean": "rm -rf dist"
+	},
+	"dependencies": {
+		"react": "latest",
+		"react-dom": "latest",
+		"@repo/ui": "workspace:*"
+	},
+	"devDependencies": {
+		"vite": "^4.0.0"
+	}
 }

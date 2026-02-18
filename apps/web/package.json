@@ -1,15 +1,19 @@
 {
-  "name": "@pos/web",
-  "version": "0.0.0",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "@pos/ui": "workspace:*"
-  }
+	"name": "@repo/web",
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write .",
+		"clean": "rm -rf .next"
+	},
+	"dependencies": {
+		"next": "latest",
+		"react": "latest",
+		"react-dom": "latest",
+		"@repo/ui": "workspace:*"
+	}
 }

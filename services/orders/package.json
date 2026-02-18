@@ -1,19 +1,24 @@
 {
-  "name": "@pos/orders-service",
-  "version": "0.0.0",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc",
-    "dev": "ts-node-dev src/index.ts"
-  },
-  "dependencies": {
-    "fastify": "^4.0.0",
-    "@pos/types": "workspace:*",
-    "@pos/database": "workspace:*",
-    "@pos/validations": "workspace:*"
-  },
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "ts-node-dev": "^2.0.0"
-  }
+	"name": "@repo/orders-service",
+	"version": "0.0.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "ts-node-dev src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write .",
+		"clean": "rm -rf dist"
+	},
+	"dependencies": {
+		"fastify": "^4.0.0",
+		"@repo/types": "workspace:*",
+		"@repo/database": "workspace:*",
+		"@repo/validations": "workspace:*"
+	},
+	"devDependencies": {
+		"typescript": "^5.0.0",
+		"ts-node-dev": "^2.0.0"
+	}
 }

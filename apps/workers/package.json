@@ -1,18 +1,23 @@
 {
-  "name": "@pos/workers",
-  "version": "0.0.0",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc",
-    "dev": "ts-node-dev src/index.ts"
-  },
-  "dependencies": {
-    "bullmq": "^4.0.0",
-    "@pos/types": "workspace:*",
-    "@pos/notifications-service": "workspace:*"
-  },
-  "devDependencies": {
-    "typescript": "^5.0.0",
-    "ts-node-dev": "^2.0.0"
-  }
+	"name": "@repo/workers",
+	"version": "0.0.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"dev": "ts-node-dev src/index.ts",
+		"build": "tsc",
+		"start": "node dist/index.js",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write .",
+		"clean": "rm -rf dist"
+	},
+	"dependencies": {
+		"bullmq": "^4.0.0",
+		"@repo/types": "workspace:*",
+		"@repo/notifications-service": "workspace:*"
+	},
+	"devDependencies": {
+		"typescript": "^5.0.0",
+		"ts-node-dev": "^2.0.0"
+	}
 }

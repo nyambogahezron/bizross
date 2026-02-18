@@ -1,15 +1,21 @@
 {
-  "name": "@pos/mobile",
-  "version": "0.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios"
-  },
-  "dependencies": {
-    "expo": "~50.0.0",
-    "react-native": "0.73.0",
-    "react": "18.2.0"
-  }
+	"name": "@repo/mobile",
+	"version": "0.0.0",
+	"main": "index.js",
+	"scripts": {
+		"dev": "expo start",
+		"start": "expo start",
+		"build": "expo build",
+		"android": "expo start --android",
+		"ios": "expo start --ios",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write .",
+		"clean": "rm -rf .expo"
+	},
+	"dependencies": {
+		"expo": "~50.0.0",
+		"react-native": "0.73.0",
+		"react": "18.2.0"
+	}
 }

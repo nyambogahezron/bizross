@@ -1,10 +1,15 @@
 {
-  "name": "@pos/tsconfig",
-  "version": "0.0.0",
-  "main": "base.json",
-  "files": [
-    "base.json",
-    "nextjs.json",
-    "react-library.json"
-  ]
+	"name": "@repo/tsconfig",
+	"version": "0.0.0",
+	"main": "base.json",
+	"scripts": {
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --write .",
+		"format": "biome format --write ."
+	},
+	"files": [
+		"base.json",
+		"nextjs.json",
+		"react-library.json"
+	]
 }
