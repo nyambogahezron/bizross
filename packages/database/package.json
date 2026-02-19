@@ -1,22 +1,33 @@
 {
 	"name": "@repo/database",
 	"version": "0.0.0",
-	"main": "./src/index.ts",
-	"types": "./src/index.ts",
+	"main": "./src/client.ts",
+	"types": "./src/client.ts",
+	"exports": {
+		"./client": "./src/client.ts",
+		"./schemas": "./src/schemas/index.ts",
+		"./queries": "./src/queries/index.ts"
+	},
 	"scripts": {
 		"dev": "tsc --watch",
-		"build": "tsc",
+		"typecheck": "tsc",
 		"start": "tsc",
 		"lint": "biome lint .",
 		"lint:fix": "biome lint --write .",
 		"format": "biome format --write .",
-		"clean": "rm -rf dist"
+		"generate": "drizzle-kit generate",
+		"migrate": "drizzle-kit migrate",
+		"push": "drizzle-kit push",
+		"studio": "drizzle-kit studio"
 	},
 	"dependencies": {
-		"@prisma/client": "^5.0.0"
+		"drizzle-orm": "^0.45.1",
+		"pg": "^8.18.0"
 	},
 	"devDependencies": {
-		"prisma": "^5.0.0",
+		"@types/bun": "latest",
+		"@types/pg": "^8.16.0",
+		"drizzle-kit": "^0.31.9",
 		"typescript": "^5.0.0"
 	}
 }
