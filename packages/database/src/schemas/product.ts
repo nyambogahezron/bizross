@@ -6,15 +6,14 @@ import {
 	pgTable,
 	text,
 	timestamp,
-	uuid,
 } from "drizzle-orm/pg-core";
-import { tenants } from "./auth";
+import { user } from "./auth";
 
 
 const baseColumns = {
-	id: uuid("id").primaryKey().defaultRandom(),
-	tenantId: uuid("tenant_id")
-		.references(() => tenants.id)
+	id: text("id").primaryKey(),
+	userId: text("user_id")
+		.references(() => user.id)
 		.notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at")
@@ -32,7 +31,7 @@ export const categories = pgTable("categories", {
 	name: text("name").notNull(),
 	slug: text("slug").notNull(),
 	description: text("description"),
-	parentId: uuid("parent_id"), // Self-reference for hierarchy
+	parentId: text("parent_id"), // Self-reference for hierarchy
 });
 
 export const brands = pgTable("brands", {
@@ -46,15 +45,15 @@ export const products = pgTable("products", {
 	...baseColumns,
 	name: text("name").notNull(),
 	description: text("description"),
-	categoryId: uuid("category_id").references(() => categories.id),
-	brandId: uuid("brand_id").references(() => brands.id),
+	categoryId: text("category_id").references(() => categories.id),
+	brandId: text("brand_id").references(() => brands.id),
 	status: statusEnum("status").default("active"),
 	isTracked: boolean("is_tracked").default(true),
 });
 
 export const productVariants = pgTable("product_variants", {
 	...baseColumns,
-	productId: uuid("product_id")
+	productId: text("product_id")
 		.notNull()
 		.references(() => products.id),
 	name: text("name"), // e.g. "Small / Red"

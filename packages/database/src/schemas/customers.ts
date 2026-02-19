@@ -1,11 +1,11 @@
-import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
-import { tenants } from "./auth";
+import { integer, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { user } from "./auth";
 
 
-const baseColumns = {
-	id: uuid("id").primaryKey().defaultRandom(),
-	tenantId: uuid("tenant_id")
-		.references(() => tenants.id)
+export const customers = pgTable("customers", {
+	id: text("id").primaryKey(),
+	userId: text("user_id")
+		.references(() => user.id)
 		.notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at")
@@ -14,10 +14,6 @@ const baseColumns = {
 		.$onUpdate(() => new Date()),
 	deletedAt: timestamp("deleted_at"),
 	version: integer("version").default(1).notNull(),
-};
-
-export const customers = pgTable("customers", {
-	...baseColumns,
 	firstName: text("first_name"),
 	lastName: text("last_name"),
 	email: text("email"),

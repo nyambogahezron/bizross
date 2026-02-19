@@ -1,5 +1,5 @@
 {
-  "id": "980cef0a-0aa1-49d5-81bc-0474392b4cf7",
+  "id": "75f2ff48-8fc9-40c3-8811-49e887970fac",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -68,6 +68,22 @@
           "primaryKey": false,
           "notNull": false
         },
+        "role": {
+          "name": "role",
+          "type": "role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'user'"
+        },
+        "permissions": {
+          "name": "permissions",
+          "type": "permission[]",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{\"read\"}'"
+        },
         "password": {
           "name": "password",
           "type": "text",
@@ -78,7 +94,8 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
@@ -87,163 +104,35 @@
           "notNull": true
         }
       },
-      "indexes": {},
+      "indexes": {
+        "account_userId_idx": {
+          "name": "account_userId_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
-        "account_user_id_users_id_fk": {
-          "name": "account_user_id_users_id_fk",
+        "account_user_id_user_id_fk": {
+          "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
-          "tableTo": "users",
+          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.permissions": {
-      "name": "permissions",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "deleted_at": {
-          "name": "deleted_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "role_id": {
-          "name": "role_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "action": {
-          "name": "action",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "resource": {
-          "name": "resource",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "permissions_role_id_roles_id_fk": {
-          "name": "permissions_role_id_roles_id_fk",
-          "tableFrom": "permissions",
-          "tableTo": "roles",
-          "columnsFrom": [
-            "role_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.roles": {
-      "name": "roles",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "deleted_at": {
-          "name": "deleted_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "roles_tenant_id_tenants_id_fk": {
-          "name": "roles_tenant_id_tenants_id_fk",
-          "tableFrom": "roles",
-          "tableTo": "tenants",
-          "columnsFrom": [
-            "tenant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -279,7 +168,8 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
@@ -306,19 +196,35 @@
           "notNull": true
         }
       },
-      "indexes": {},
+      "indexes": {
+        "session_userId_idx": {
+          "name": "session_userId_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {
-        "session_user_id_users_id_fk": {
-          "name": "session_user_id_users_id_fk",
+        "session_user_id_user_id_fk": {
+          "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
-          "tableTo": "users",
+          "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -336,68 +242,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.tenants": {
-      "name": "tenants",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "deleted_at": {
-          "name": "deleted_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "slug": {
-          "name": "slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "tenants_slug_unique": {
-          "name": "tenants_slug_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.users": {
-      "name": "users",
+    "public.user": {
+      "name": "user",
       "schema": "",
       "columns": {
         "id": {
@@ -422,7 +268,8 @@
           "name": "email_verified",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": false
         },
         "image": {
           "name": "image",
@@ -434,66 +281,23 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true
-        },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "password_hash": {
-          "name": "password_hash",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "pin_code": {
-          "name": "pin_code",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "role": {
-          "name": "role",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'cashier'"
-        },
-        "deleted_at": {
-          "name": "deleted_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "users_tenant_id_tenants_id_fk": {
-          "name": "users_tenant_id_tenants_id_fk",
-          "tableFrom": "users",
-          "tableTo": "tenants",
-          "columnsFrom": [
-            "tenant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "users_email_unique": {
-          "name": "users_email_unique",
+        "user_email_unique": {
+          "name": "user_email_unique",
           "nullsNotDistinct": false,
           "columns": [
             "email"
@@ -536,16 +340,34 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "default": "now()"
         }
       },
-      "indexes": {},
+      "indexes": {
+        "verification_identifier_idx": {
+          "name": "verification_identifier_idx",
+          "columns": [
+            {
+              "expression": "identifier",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
@@ -559,14 +381,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -631,12 +452,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "customers_tenant_id_tenants_id_fk": {
-          "name": "customers_tenant_id_tenants_id_fk",
+        "customers_user_id_user_id_fk": {
+          "name": "customers_user_id_user_id_fk",
           "tableFrom": "customers",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -657,14 +478,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -697,13 +517,13 @@
         },
         "warehouse_id": {
           "name": "warehouse_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
         "variant_id": {
           "name": "variant_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -724,12 +544,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "stock_tenant_id_tenants_id_fk": {
-          "name": "stock_tenant_id_tenants_id_fk",
+        "stock_user_id_user_id_fk": {
+          "name": "stock_user_id_user_id_fk",
           "tableFrom": "stock",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -776,26 +596,25 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "variant_id": {
           "name": "variant_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "warehouse_id": {
           "name": "warehouse_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -813,7 +632,7 @@
         },
         "reference_id": {
           "name": "reference_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -827,12 +646,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "stock_movements_tenant_id_tenants_id_fk": {
-          "name": "stock_movements_tenant_id_tenants_id_fk",
+        "stock_movements_user_id_user_id_fk": {
+          "name": "stock_movements_user_id_user_id_fk",
           "tableFrom": "stock_movements",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -879,14 +698,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -933,12 +751,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "warehouses_tenant_id_tenants_id_fk": {
-          "name": "warehouses_tenant_id_tenants_id_fk",
+        "warehouses_user_id_user_id_fk": {
+          "name": "warehouses_user_id_user_id_fk",
           "tableFrom": "warehouses",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -959,14 +777,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -999,7 +816,7 @@
         },
         "order_id": {
           "name": "order_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -1038,12 +855,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "payments_tenant_id_tenants_id_fk": {
-          "name": "payments_tenant_id_tenants_id_fk",
+        "payments_user_id_user_id_fk": {
+          "name": "payments_user_id_user_id_fk",
           "tableFrom": "payments",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -1077,14 +894,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -1136,12 +952,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "brands_tenant_id_tenants_id_fk": {
-          "name": "brands_tenant_id_tenants_id_fk",
+        "brands_user_id_user_id_fk": {
+          "name": "brands_user_id_user_id_fk",
           "tableFrom": "brands",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -1162,14 +978,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -1220,19 +1035,19 @@
         },
         "parent_id": {
           "name": "parent_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "categories_tenant_id_tenants_id_fk": {
-          "name": "categories_tenant_id_tenants_id_fk",
+        "categories_user_id_user_id_fk": {
+          "name": "categories_user_id_user_id_fk",
           "tableFrom": "categories",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -1253,14 +1068,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -1293,7 +1107,7 @@
         },
         "product_id": {
           "name": "product_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -1330,12 +1144,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "product_variants_tenant_id_tenants_id_fk": {
-          "name": "product_variants_tenant_id_tenants_id_fk",
+        "product_variants_user_id_user_id_fk": {
+          "name": "product_variants_user_id_user_id_fk",
           "tableFrom": "product_variants",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -1369,14 +1183,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -1421,13 +1234,13 @@
         },
         "category_id": {
           "name": "category_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
         "brand_id": {
           "name": "brand_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -1449,12 +1262,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "products_tenant_id_tenants_id_fk": {
-          "name": "products_tenant_id_tenants_id_fk",
+        "products_user_id_user_id_fk": {
+          "name": "products_user_id_user_id_fk",
           "tableFrom": "products",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -1501,14 +1314,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
+          "notNull": true
         },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -1541,13 +1353,13 @@
         },
         "order_id": {
           "name": "order_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
         "variant_id": {
           "name": "variant_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -1590,12 +1402,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "order_items_tenant_id_tenants_id_fk": {
-          "name": "order_items_tenant_id_tenants_id_fk",
+        "order_items_user_id_user_id_fk": {
+          "name": "order_items_user_id_user_id_fk",
           "tableFrom": "order_items",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -1642,16 +1454,15 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "tenant_id": {
-          "name": "tenant_id",
-          "type": "uuid",
-          "primaryKey": false,
           "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -1688,12 +1499,6 @@
         },
         "customer_id": {
           "name": "customer_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "user_id": {
-          "name": "user_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false
@@ -1741,12 +1546,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "orders_tenant_id_tenants_id_fk": {
-          "name": "orders_tenant_id_tenants_id_fk",
+        "orders_user_id_user_id_fk": {
+          "name": "orders_user_id_user_id_fk",
           "tableFrom": "orders",
-          "tableTo": "tenants",
+          "tableTo": "user",
           "columnsFrom": [
-            "tenant_id"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -1766,19 +1571,6 @@
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
-        },
-        "orders_user_id_users_id_fk": {
-          "name": "orders_user_id_users_id_fk",
-          "tableFrom": "orders",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -1789,6 +1581,27 @@
     }
   },
   "enums": {
+    "public.permission": {
+      "name": "permission",
+      "schema": "public",
+      "values": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": [
+        "admin",
+        "user",
+        "manager",
+        "staff",
+        "customer"
+      ]
+    },
     "public.payment_method": {
       "name": "payment_method",
       "schema": "public",

@@ -4,17 +4,16 @@ import {
 	pgTable,
 	text,
 	timestamp,
-	uuid,
 } from "drizzle-orm/pg-core";
-import { tenants, users } from "./auth";
+import { user } from "./auth";
 import { customers } from "./customers";
 import { productVariants } from "./product";
 
 
 const baseColumns = {
-	id: uuid("id").primaryKey().defaultRandom(),
-	tenantId: uuid("tenant_id")
-		.references(() => tenants.id)
+	id: text("id").primaryKey(),
+	userId: text("user_id")
+		.references(() => user.id)
 		.notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at")
@@ -28,8 +27,8 @@ const baseColumns = {
 export const orders = pgTable("orders", {
 	...baseColumns,
 	orderNumber: text("order_number").notNull(),
-	customerId: uuid("customer_id").references(() => customers.id),
-	userId: text("user_id").references(() => users.id), // Cashier
+	customerId: text("customer_id").references(() => customers.id),
+	userId: text("user_id").references(() => user.id), // Cashier
 	status: text("status").default("pending"), // 'completed', 'voided', 'refunded'
 	totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
 	taxAmount: decimal("tax_amount", { precision: 10, scale: 2 }).default("0"),
@@ -43,10 +42,10 @@ export const orders = pgTable("orders", {
 
 export const orderItems = pgTable("order_items", {
 	...baseColumns,
-	orderId: uuid("order_id")
+	orderId: text("order_id")
 		.references(() => orders.id)
 		.notNull(),
-	variantId: uuid("variant_id").references(() => productVariants.id),
+	variantId: text("variant_id").references(() => productVariants.id),
 	productName: text("product_name").notNull(), // Snapshot
 	quantity: integer("quantity").notNull(),
 	unitPrice: decimal("unit_price", { precision: 10, scale: 2 }).notNull(), // Snapshot

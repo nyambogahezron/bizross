@@ -13,20 +13,28 @@ export const orderItemSchema = z.object({
 });
 
 export const orderSchema = z.object({
-  id: z.string().uuid(),
-  tenantId: z.string().uuid(),
-  orderNumber: z.string(),
-  customerId: z.string().uuid().optional().nullable(),
-  userId: z.string().uuid().optional().nullable(),
-  status: z.enum(["pending", "completed", "voided", "refunded"]).default("pending"),
-  totalAmount: z.string().regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format"),
-  taxAmount: z.string().regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format").default("0"),
-  discountAmount: z.string().regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format").default("0"),
-  currency: z.string().default("USD"),
-  deviceSource: z.string().optional().nullable(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  items: z.array(orderItemSchema).optional(),
+	id: z.string().uuid(),
+	userId: z.string().uuid(),
+	orderNumber: z.string(),
+	customerId: z.string().uuid().optional().nullable(),
+	userId: z.string().uuid().optional().nullable(),
+	status: z
+		.enum(["pending", "completed", "voided", "refunded"])
+		.default("pending"),
+	totalAmount: z.string().regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format"),
+	taxAmount: z
+		.string()
+		.regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format")
+		.default("0"),
+	discountAmount: z
+		.string()
+		.regex(/^\d+(\.\d{1,2})?$/, "Invalid amount format")
+		.default("0"),
+	currency: z.string().default("USD"),
+	deviceSource: z.string().optional().nullable(),
+	createdAt: z.date(),
+	updatedAt: z.date(),
+	items: z.array(orderItemSchema).optional(),
 });
 
 export const createOrderSchema = z.object({
