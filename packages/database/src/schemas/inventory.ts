@@ -9,7 +9,7 @@ import {
 import { tenants } from "./auth";
 import { productVariants } from "./product";
 
-// Shared columns pattern
+
 const baseColumns = {
 	id: uuid("id").primaryKey().defaultRandom(),
 	tenantId: uuid("tenant_id")

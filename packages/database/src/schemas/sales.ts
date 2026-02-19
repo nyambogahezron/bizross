@@ -10,7 +10,7 @@ import { tenants, users } from "./auth";
 import { customers } from "./customers";
 import { productVariants } from "./product";
 
-// Shared columns pattern
+
 const baseColumns = {
 	id: uuid("id").primaryKey().defaultRandom(),
 	tenantId: uuid("tenant_id")
@@ -29,13 +29,14 @@ export const orders = pgTable("orders", {
 	...baseColumns,
 	orderNumber: text("order_number").notNull(),
 	customerId: uuid("customer_id").references(() => customers.id),
-	userId: uuid("user_id").references(() => users.id), // Cashier
+	userId: text("user_id").references(() => users.id), // Cashier
 	status: text("status").default("pending"), // 'completed', 'voided', 'refunded'
 	totalAmount: decimal("total_amount", { precision: 10, scale: 2 }).notNull(),
 	taxAmount: decimal("tax_amount", { precision: 10, scale: 2 }).default("0"),
-	discountAmount: decimal("discount_amount", { precision: 10, scale: 2 }).default(
-		"0",
-	),
+	discountAmount: decimal("discount_amount", {
+		precision: 10,
+		scale: 2,
+	}).default("0"),
 	currency: text("currency").default("USD"),
 	deviceSource: text("device_source"), // 'web', 'mobile-app', 'tablet-1'
 });

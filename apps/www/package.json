@@ -13,7 +13,6 @@
 	"dependencies": {
 		"next": "latest",
 		"react": "latest",
-		"react-dom": "latest",
-		"@repo/ui": "workspace:*"
+		"react-dom": "latest"
 	}
 }
