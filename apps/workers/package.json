@@ -12,9 +12,7 @@
 		"clean": "rm -rf dist"
 	},
 	"dependencies": {
-		"bullmq": "^4.0.0",
-		"@repo/types": "workspace:*",
-		"@repo/notifications-service": "workspace:*"
+		"bullmq": "^4.0.0"
 	},
 	"devDependencies": {
 		"typescript": "^5.0.0",

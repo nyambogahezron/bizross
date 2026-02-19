@@ -10,7 +10,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { tenants } from "./auth";
 
-// Shared columns pattern
+
 const baseColumns = {
 	id: uuid("id").primaryKey().defaultRandom(),
 	tenantId: uuid("tenant_id")

@@ -17,6 +17,7 @@
 		"format": "biome format --write .",
 		"generate": "drizzle-kit generate",
 		"migrate": "drizzle-kit migrate",
+		"migrate:code": "bun run src/migrate.ts",
 		"push": "drizzle-kit push",
 		"studio": "drizzle-kit studio"
 	},

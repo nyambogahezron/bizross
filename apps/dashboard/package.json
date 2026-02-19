@@ -13,8 +13,7 @@
 	},
 	"dependencies": {
 		"react": "latest",
-		"react-dom": "latest",
-		"@repo/ui": "workspace:*"
+		"react-dom": "latest"
 	},
 	"devDependencies": {
 		"vite": "^4.0.0"
