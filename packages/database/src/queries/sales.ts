@@ -22,18 +22,18 @@ export const createOrder = async (
 	});
 };
 
-export const getOrderById = async (id: string, tenantId: string) => {
+export const getOrderById = async (id: string, userId: string) => {
 	return await db.query.orders.findFirst({
-		where: and(eq(orders.id, id), eq(orders.tenantId, tenantId)),
+		where: and(eq(orders.id, id), eq(orders.userId, userId)),
 		with: {
 			items: true,
 		},
 	});
 };
 
-export const getOrders = async (tenantId: string) => {
+export const getOrders = async (userId: string) => {
 	return await db.query.orders.findMany({
-		where: eq(orders.tenantId, tenantId),
+		where: eq(orders.userId, userId),
 		with: {
 			items: true,
 		},
@@ -42,13 +42,13 @@ export const getOrders = async (tenantId: string) => {
 
 export const updateOrderStatus = async (
 	id: string,
-	tenantId: string,
+	userId: string,
 	status: string,
 ) => {
 	const [updatedOrder] = await db
 		.update(orders)
 		.set({ status, updatedAt: new Date() })
-		.where(and(eq(orders.id, id), eq(orders.tenantId, tenantId)))
+		.where(and(eq(orders.id, id), eq(orders.userId, userId)))
 		.returning();
 	return updatedOrder;
 };

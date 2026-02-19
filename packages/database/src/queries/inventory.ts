@@ -2,9 +2,9 @@ import { and, eq } from "drizzle-orm";
 import { db } from "../client";
 import { stock, stockMovements, warehouses } from "../schemas/inventory";
 
-export const getWarehouses = async (tenantId: string) => {
+export const getWarehouses = async (userId: string) => {
 	return await db.query.warehouses.findMany({
-		where: eq(warehouses.tenantId, tenantId),
+		where: eq(warehouses.userId, userId),
 	});
 };
 
@@ -26,11 +26,11 @@ export const updateStock = async (
 	warehouseId: string,
 	variantId: string,
 	quantity: number,
-	tenantId: string,
+	userId: string,
 ) => {
 	const existingStock = await getStock(warehouseId, variantId);
 
-	let stockRecord : typeof stock.$inferSelect;
+	let stockRecord: typeof stock.$inferSelect;
 	if (existingStock) {
 		[stockRecord] = await db
 			.update(stock)
@@ -43,7 +43,7 @@ export const updateStock = async (
 		[stockRecord] = await db
 			.insert(stock)
 			.values({
-				tenantId,
+				userId,
 				warehouseId,
 				variantId,
 				quantity,

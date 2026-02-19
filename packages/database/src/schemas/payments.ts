@@ -5,16 +5,15 @@ import {
 	pgTable,
 	text,
 	timestamp,
-	uuid,
 } from "drizzle-orm/pg-core";
-import { tenants } from "./auth";
+import { user } from "./auth";
 import { orders } from "./sales";
 
 
 const baseColumns = {
-	id: uuid("id").primaryKey().defaultRandom(),
-	tenantId: uuid("tenant_id")
-		.references(() => tenants.id)
+	id: text("id").primaryKey(),
+	userId: text("user_id")
+		.references(() => user.id)
 		.notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at")
@@ -34,7 +33,7 @@ export const paymentMethods = pgEnum("payment_method", [
 
 export const payments = pgTable("payments", {
 	...baseColumns,
-	orderId: uuid("order_id")
+	orderId: text("order_id")
 		.references(() => orders.id)
 		.notNull(),
 	amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),

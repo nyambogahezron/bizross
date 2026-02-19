@@ -4,16 +4,15 @@ import {
 	pgTable,
 	text,
 	timestamp,
-	uuid,
 } from "drizzle-orm/pg-core";
-import { tenants } from "./auth";
+import { user } from "./auth";
 import { productVariants } from "./product";
 
 
 const baseColumns = {
-	id: uuid("id").primaryKey().defaultRandom(),
-	tenantId: uuid("tenant_id")
-		.references(() => tenants.id)
+	id: text("id").primaryKey(),
+	userId: text("user_id")
+		.references(() => user.id)
 		.notNull(),
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 	updatedAt: timestamp("updated_at")
@@ -32,25 +31,25 @@ export const warehouses = pgTable("warehouses", {
 
 export const stock = pgTable("stock", {
 	...baseColumns,
-	warehouseId: uuid("warehouse_id").references(() => warehouses.id),
-	variantId: uuid("variant_id").references(() => productVariants.id),
+	warehouseId: text("warehouse_id").references(() => warehouses.id),
+	variantId: text("variant_id").references(() => productVariants.id),
 	quantity: integer("quantity").notNull().default(0),
 	lowStockThreshold: integer("low_stock_threshold").default(5),
 });
 
 export const stockMovements = pgTable("stock_movements", {
-	id: uuid("id").primaryKey().defaultRandom(),
-	tenantId: uuid("tenant_id")
-		.references(() => tenants.id)
+	id: text("id").primaryKey(),
+	userId: text("user_id")
+		.references(() => user.id)
 		.notNull(),
-	variantId: uuid("variant_id")
+	variantId: text("variant_id")
 		.references(() => productVariants.id)
 		.notNull(),
-	warehouseId: uuid("warehouse_id")
+	warehouseId: text("warehouse_id")
 		.references(() => warehouses.id)
 		.notNull(),
 	quantityChange: integer("quantity_change").notNull(),
 	reason: text("reason"), // 'sale', 'restock', 'return', 'adjustment'
-	referenceId: uuid("reference_id"), // Order ID or Adjustment ID
+	referenceId: text("reference_id"), // Order ID or Adjustment ID
 	createdAt: timestamp("created_at").defaultNow().notNull(),
 });
