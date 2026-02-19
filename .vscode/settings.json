@@ -21,5 +21,22 @@
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"github.copilot.enable": {
+		"*": true,
+		"yaml": true,
+		"plaintext": true,
+		"markdown": true
+	},
+
+	"files.associations": {
+		"*.md": "markdown",
+		".copilot/**/*.md": "markdown"
+	},
+	"search.exclude": {
+		"**/node_modules": true,
+		"**/dist": true,
+		"**/build": true,
+		"**/.turbo": true
 	}
 }
