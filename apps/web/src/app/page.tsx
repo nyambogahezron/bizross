@@ -1,65 +1,134 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+import { motion } from "framer-motion";
+import {
+	ClipboardList,
+	LayoutDashboard,
+	LogOut,
+	Moon,
+	Package,
+	Store,
+	Sun,
+	Users,
+	Warehouse,
+} from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import { PaymentFeed } from "@/components/pos/PaymentFeed";
+import { POSCartPanel } from "@/components/pos/POSCartPanel";
+import { POSCheckoutModal } from "@/components/pos/POSCheckoutModal";
+import { POSScanAdd } from "@/components/pos/POSScanAdd";
+import { useUIStore } from "@/stores/uiStore";
+
+const navLinks = [
+	{ href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+	{ href: "/products", label: "Products", icon: Package },
+	{ href: "/orders", label: "Orders", icon: ClipboardList },
+	{ href: "/inventory", label: "Inventory", icon: Warehouse },
+	{ href: "/customers", label: "Customers", icon: Users },
+];
+
+export default function POSPage() {
+	const [checkoutOpen, setCheckoutOpen] = useState(false);
+	const { theme, toggleTheme } = useUIStore();
+
+	return (
+		<ThemeProvider>
+			<div className="flex h-screen bg-background text-foreground overflow-hidden">
+				{/* ── Icon sidebar ─────────────────────────────────────── */}
+				<aside className="w-14 flex flex-col items-center py-3 gap-2 bg-sidebar border-r border-border shrink-0">
+					{/* Logo */}
+					<div className="w-8 h-8 rounded-xl bg-linear-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg mb-2">
+						<Store size={15} className="text-white" />
+					</div>
+
+					{/* Active POS indicator */}
+					<div
+						className="w-8 h-8 rounded-xl bg-primary/10 border border-primary/30 flex items-center justify-center text-primary"
+						aria-label="POS"
+					>
+						<svg
+							width="15"
+							height="15"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							aria-hidden="true"
+						>
+							<title>POS Active</title>
+							<circle cx="9" cy="21" r="1" />
+							<circle cx="20" cy="21" r="1" />
+							<path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+						</svg>
+					</div>
+
+					<div className="flex-1" />
+
+					{/* Nav links to other sections */}
+					{navLinks.map(({ href, label, icon: Icon }) => (
+						<Link key={href} href={href} title={label}>
+							<motion.div
+								whileHover={{ scale: 1.12 }}
+								whileTap={{ scale: 0.9 }}
+								className="w-8 h-8 rounded-xl hover:bg-accent text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors"
+							>
+								<Icon size={15} />
+							</motion.div>
+						</Link>
+					))}
+
+					<div className="w-6 border-t border-border my-1" />
+
+					{/* Theme toggle */}
+					<motion.button
+						type="button"
+						whileTap={{ scale: 0.9, rotate: 20 }}
+						onClick={toggleTheme}
+						title="Toggle theme"
+						className="w-8 h-8 rounded-xl hover:bg-accent text-muted-foreground hover:text-foreground flex items-center justify-center transition-colors"
+					>
+						{theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+					</motion.button>
+
+					{/* Logout */}
+					<Link href="/login" title="Logout">
+						<div className="w-8 h-8 rounded-xl hover:bg-danger/10 text-muted-foreground hover:text-danger flex items-center justify-center transition-colors">
+							<LogOut size={14} />
+						</div>
+					</Link>
+
+					{/* Cashier avatar */}
+					<div className="w-8 h-8 rounded-full bg-linear-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white text-xs font-bold">
+						J
+					</div>
+				</aside>
+
+				{/* ── LEFT: Payment Feed ───────────────────────────────── */}
+				<aside className="w-[230px] shrink-0 flex flex-col border-r border-border bg-sidebar overflow-hidden">
+					<PaymentFeed />
+				</aside>
+
+				{/* ── CENTER: Scan / Search to add ─────────────────────── */}
+				<div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+					<POSScanAdd />
+				</div>
+
+				{/* ── RIGHT: Cart ───────────────────────────────────────── */}
+				<aside className="w-75 shrink-0 flex flex-col border-l border-border bg-sidebar">
+					<div className="p-4 flex-1 overflow-hidden flex flex-col">
+						<POSCartPanel onCheckout={() => setCheckoutOpen(true)} />
+					</div>
+				</aside>
+
+				<POSCheckoutModal
+					open={checkoutOpen}
+					onClose={() => setCheckoutOpen(false)}
+				/>
+			</div>
+		</ThemeProvider>
+	);
 }
