@@ -2,30 +2,82 @@
 
 /* ── Design Tokens ───────────────────────────── */
 :root {
+  /* Backgrounds */
   --bg: #0a0c16;
   --bg-card: #0f1220;
   --bg-card-hover: #141828;
+
+  /* Borders */
   --border: rgba(255, 255, 255, 0.08);
   --border-hover: rgba(255, 255, 255, 0.16);
 
+  /* Brand colors */
   --primary: #6366f1;
   --primary-light: #818cf8;
   --primary-dark: #4f46e5;
   --secondary: #06b6d4;
   --accent: #a78bfa;
 
+  /* Text */
   --text-primary: #f0f2ff;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
 
+  /* Status colors */
+  --success: #34d399;
+  --warning: #facc15;
+  --danger: #fb7185;
+
+  /* Surface / overlay layers */
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.08);
+  --overlay-light: rgba(255, 255, 255, 0.10);
+  --overlay-border: rgba(255, 255, 255, 0.08);
+  --overlay-border-hover: rgba(255, 255, 255, 0.16);
+
+  /* Gradients */
   --gradient-hero: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
   --gradient-card: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
+  --gradient-cta: linear-gradient(135deg, var(--primary-dark) 0%, #7c3aed 50%, #0e7490 100%);
+  --gradient-btn: linear-gradient(to right, var(--primary), var(--secondary));
+
+  /* Glows / shadows */
   --glow: 0 0 60px rgba(99, 102, 241, 0.3);
+  --glow-primary: 0 0 40px rgba(99, 102, 241, 0.25);
+  --shadow-btn: 0 10px 30px rgba(99, 102, 241, 0.3);
 }
 
 @theme inline {
-  --color-background: var(--bg);
-  --color-foreground: var(--text-primary);
+  /* Backgrounds */
+  --color-background:     var(--bg);
+  --color-foreground:     var(--text-primary);
+  --color-card:           var(--bg-card);
+  --color-card-hover:     var(--bg-card-hover);
+
+  /* Brand */
+  --color-primary:        var(--primary);
+  --color-primary-light:  var(--primary-light);
+  --color-primary-dark:   var(--primary-dark);
+  --color-secondary:      var(--secondary);
+  --color-accent:         var(--accent);
+
+  /* Text */
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:     var(--text-muted);
+
+  /* Status */
+  --color-success:        var(--success);
+  --color-warning:        var(--warning);
+  --color-danger:         var(--danger);
+
+  /* Surfaces / overlays */
+  --color-surface:               var(--surface);
+  --color-surface-hover:         var(--surface-hover);
+  --color-overlay-light:         var(--overlay-light);
+  --color-overlay-border:        var(--overlay-border);
+  --color-overlay-border-hover:  var(--overlay-border-hover);
+
   --font-sans: var(--font-inter);
 }
 
@@ -73,8 +125,23 @@ body {
 
 /* ── Glow Effect ─────────────────────────────── */
 .glow-primary {
-  box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
+  box-shadow: var(--glow-primary);
 }
+
+/* ── Primary Button ──────────────────────────── */
+.btn-primary {
+  background: var(--gradient-btn);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-btn);
+}
+
+/* ── Section Badges ──────────────────────────── */
+.badge-primary   { border-color: color-mix(in srgb, var(--primary)   30%, transparent); color: var(--primary-light); }
+.badge-secondary { border-color: color-mix(in srgb, var(--secondary) 30%, transparent); color: var(--secondary); }
+.badge-accent    { border-color: color-mix(in srgb, var(--accent)    30%, transparent); color: var(--accent); }
+.badge-success   { border-color: color-mix(in srgb, var(--success)   30%, transparent); color: var(--success); }
+.badge-warning   { border-color: color-mix(in srgb, var(--warning)   30%, transparent); color: var(--warning); }
+.badge-danger    { border-color: color-mix(in srgb, var(--danger)    30%, transparent); color: var(--danger); }
 
 /* ── Noise Overlay ───────────────────────────── */
 .noise::before {
