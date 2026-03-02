@@ -39,14 +39,14 @@ app.on(["POST", "GET"], "/api/auth/**", (c) => {
 });
 
 app.get("/session", (c) => {
-	const session = c.get("session")
-	const user = c.get("user")
+	const session = c.get("session");
+	const user = c.get("user");
 
-	if(!user) return c.body(null, 401);
+	if (!user) return c.body(null, 401);
 
-  	return c.json({
-	  session,
-	  user
+	return c.json({
+		session,
+		user,
 	});
 });
 
@@ -55,6 +55,6 @@ app.get("/", (c) => {
 });
 
 export default {
-  app,
+	app,
 	port: 5000,
-}
+};
