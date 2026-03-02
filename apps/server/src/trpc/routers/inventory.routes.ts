@@ -1,10 +1,22 @@
+import {
+	createWarehouse,
+	deleteWarehouse,
+	getAllStock,
+	getStockMovements,
+	getWarehouses,
+	recordStockMovement,
+	updateStock,
+	updateWarehouse,
+} from "@repo/database/queries";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "../";
+import { protectedProcedure, router } from "../";
 
 export const inventoryRoutes = router({
 	getWarehouses: protectedProcedure.query(async ({ ctx }) => {
-		return {};
+		return await getWarehouses(ctx.user.id);
 	}),
+
 	createWarehouse: protectedProcedure
 		.input(
 			z.object({
@@ -13,8 +25,14 @@ export const inventoryRoutes = router({
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			return await createWarehouse({
+				id: crypto.randomUUID(),
+				userId: ctx.user.id,
+				name: input.name,
+				isPrimary: input.isPrimary ?? false,
+			});
 		}),
+
 	updateWarehouse: protectedProcedure
 		.input(
 			z.object({
@@ -24,32 +42,56 @@ export const inventoryRoutes = router({
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			const { id, ...data } = input;
+			const updated = await updateWarehouse(id, ctx.user.id, data);
+			if (!updated) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Warehouse not found",
+				});
+			}
+			return updated;
 		}),
+
 	deleteWarehouse: protectedProcedure
 		.input(z.object({ id: z.string() }))
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			const deleted = await deleteWarehouse(input.id, ctx.user.id);
+			if (!deleted) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Warehouse not found",
+				});
+			}
+			return deleted;
 		}),
 
 	getStock: protectedProcedure.query(async ({ ctx }) => {
-		return {};
+		return await getAllStock(ctx.user.id);
 	}),
+
 	updateStock: protectedProcedure
 		.input(
 			z.object({
-				id: z.string(),
-				quantity: z.number().int().min(0).optional(),
+				warehouseId: z.string(),
+				variantId: z.string(),
+				quantity: z.number().int().min(0),
 				lowStockThreshold: z.number().int().min(0).optional(),
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			return await updateStock(
+				input.warehouseId,
+				input.variantId,
+				input.quantity,
+				ctx.user.id,
+			);
 		}),
 
 	getStockMovements: protectedProcedure.query(async ({ ctx }) => {
-		return {};
+		return await getStockMovements(ctx.user.id);
 	}),
+
 	createStockMovement: protectedProcedure
 		.input(
 			z.object({
@@ -61,6 +103,10 @@ export const inventoryRoutes = router({
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			return await recordStockMovement({
+				id: crypto.randomUUID(),
+				userId: ctx.user.id,
+				...input,
+			});
 		}),
 });

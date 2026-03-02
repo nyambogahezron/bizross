@@ -1,15 +1,32 @@
+import {
+	createCustomer,
+	deleteCustomer,
+	getCustomerById,
+	getCustomers,
+	updateCustomer,
+} from "@repo/database/queries";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { protectedProcedure, publicProcedure, router } from "../";
+import { protectedProcedure, router } from "../";
 
 export const customerRoutes = router({
 	getCustomers: protectedProcedure.query(async ({ ctx }) => {
-		return {};
+		return await getCustomers(ctx.user.id);
 	}),
+
 	getCustomer: protectedProcedure
 		.input(z.object({ id: z.string() }))
 		.query(async ({ ctx, input }) => {
-			return {};
+			const customer = await getCustomerById(input.id, ctx.user.id);
+			if (!customer) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Customer not found",
+				});
+			}
+			return customer;
 		}),
+
 	createCustomer: protectedProcedure
 		.input(
 			z.object({
@@ -20,8 +37,13 @@ export const customerRoutes = router({
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			return await createCustomer({
+				id: crypto.randomUUID(),
+				userId: ctx.user.id,
+				...input,
+			});
 		}),
+
 	updateCustomer: protectedProcedure
 		.input(
 			z.object({
@@ -34,11 +56,27 @@ export const customerRoutes = router({
 			}),
 		)
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			const { id, ...data } = input;
+			const updated = await updateCustomer(id, ctx.user.id, data);
+			if (!updated) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Customer not found",
+				});
+			}
+			return updated;
 		}),
+
 	deleteCustomer: protectedProcedure
 		.input(z.object({ id: z.string() }))
 		.mutation(async ({ ctx, input }) => {
-			return {};
+			const deleted = await deleteCustomer(input.id, ctx.user.id);
+			if (!deleted) {
+				throw new TRPCError({
+					code: "NOT_FOUND",
+					message: "Customer not found",
+				});
+			}
+			return deleted;
 		}),
 });
