@@ -1,55 +1,56 @@
 {
-  "$schema": "https://turborepo.com/schema.json",
-  "globalDependencies": ["**/.env"],
-  "tasks": {
-    "build": {
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "dependsOn": ["^build"],
-      "outputs": [
-        "build/**",
-        ".vercel/**",
-        "dist/**",
-        ".next/**",
-        "!.next/cache/**"
-      ],
-      "passThroughEnv": [
-        "BETTER_AUTH_SECRET",
-        "BETTER_AUTH_URL",
-        "DATABASE_URL"
-      ]
-    },
-    "start": {
-      "dependsOn": ["^build"],
-      "cache": false,
-      "persistent": true
-    },
-    "dev": {
-      "dependsOn": ["^build"],
-      "cache": false,
-      "persistent": true
-    },
-    "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": []
-    },
-    "lint": {
-      "dependsOn": ["^build", "^lint"]
-    },
-    "lint:fix": {
-      "dependsOn": ["^build"]
-    },
-    "format": {
-      "dependsOn": []
-    },
-    "check": {
-      "dependsOn": []
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"],
-      "outputs": []
-    },
-    "clean": {
-      "dependsOn": []
-    }
-  }
+	"$schema": "https://turborepo.com/schema.json",
+	"ui": "stream-with-experimental-timestamps",
+	"globalDependencies": ["**/.env"],
+	"tasks": {
+		"build": {
+			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+			"dependsOn": ["^build"],
+			"outputs": [
+				"build/**",
+				".vercel/**",
+				"dist/**",
+				".next/**",
+				"!.next/cache/**"
+			],
+			"passThroughEnv": [
+				"BETTER_AUTH_SECRET",
+				"BETTER_AUTH_URL",
+				"DATABASE_URL"
+			]
+		},
+		"start": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"persistent": true
+		},
+		"dev": {
+			"dependsOn": ["^build"],
+			"cache": false,
+			"persistent": true
+		},
+		"test": {
+			"outputs": ["coverage/**"],
+			"dependsOn": []
+		},
+		"lint": {
+			"dependsOn": ["^build", "^lint"]
+		},
+		"lint:fix": {
+			"dependsOn": ["^build"]
+		},
+		"format": {
+			"dependsOn": []
+		},
+		"check": {
+			"dependsOn": []
+		},
+		"check-types": {
+			"dependsOn": ["^check-types"],
+			"outputs": []
+		},
+		"clean": {
+			"dependsOn": []
+		}
+	}
 }

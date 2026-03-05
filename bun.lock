@@ -6,7 +6,7 @@
       "name": "root",
       "devDependencies": {
         "@biomejs/biome": "2.4.2",
-        "turbo": "latest",
+        "turbo": "^2.8.10",
         "vitepress": "^2.0.0-alpha.16",
       },
     },
