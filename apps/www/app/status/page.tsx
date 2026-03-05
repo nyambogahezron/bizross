@@ -40,7 +40,7 @@ export default function StatusPage() {
       <Navbar />
 
       <section className="pt-36 pb-16 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">System Status</p>
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">System Status</p>
         <div className="flex items-center justify-center gap-3 mb-4">
           <span className="relative flex h-4 w-4">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />

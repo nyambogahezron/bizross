@@ -14,16 +14,16 @@ const contactInfo = [
     label: 'Email',
     value: 'hello@bizross.io',
     sub: 'We reply within 24 hours',
-    color: 'text-indigo-400',
-    bg: 'bg-indigo-500/10',
+    color: 'text-blue-400',
+    bg: 'bg-blue-500/10',
   },
   {
     Icon: Phone,
     label: 'Sales',
     value: '+1 (800) BIZ-ROSS',
     sub: 'Mon–Fri, 9am–6pm EAT',
-    color: 'text-violet-400',
-    bg: 'bg-violet-500/10',
+    color: 'text-sky-400',
+    bg: 'bg-sky-500/10',
   },
   {
     Icon: MapPin,
@@ -41,8 +41,8 @@ export default function ContactPage() {
       <Navbar />
 
       <section className="pt-36 pb-16 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">Get In Touch</p>
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">Get In Touch</p>
+        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
           We&apos;d love to hear from you
         </h1>
         <p className="mt-6 text-lg text-gray-400 max-w-xl mx-auto">
@@ -55,21 +55,21 @@ export default function ContactPage() {
         <div className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-400">Full Name</label>
-            <input type="text" placeholder="Jane Doe" className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-indigo-500 transition-colors" />
+            <input type="text" placeholder="Jane Doe" className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-blue-500 transition-colors" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-400">Email Address</label>
-            <input type="email" placeholder="jane@example.com" className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-indigo-500 transition-colors" />
+            <input type="email" placeholder="jane@example.com" className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-blue-500 transition-colors" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-400">Subject</label>
-            <input type="text" placeholder="How can we help?" className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-indigo-500 transition-colors" />
+            <input type="text" placeholder="How can we help?" className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-blue-500 transition-colors" />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-sm text-gray-400">Message</label>
-            <textarea rows={5} placeholder="Tell us more..." className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-indigo-500 transition-colors resize-none" />
+            <textarea rows={5} placeholder="Tell us more..." className="bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder-gray-600 outline-none focus:border-blue-500 transition-colors resize-none" />
           </div>
-          <button className="w-full bg-indigo-600 hover:bg-indigo-500 transition-colors text-white font-medium py-3 rounded-lg">
+          <button className="w-full bg-blue-600 hover:bg-blue-500 transition-colors text-white font-medium py-3 rounded-lg">
             Send Message
           </button>
         </div>

@@ -15,6 +15,17 @@ export const auth = betterAuth({
 	}),
 	emailAndPassword: {
 		enabled: true,
+		sendResetPassword: async ({ user, url, token }) => {
+			console.log(`[AUTH] Password reset requested for ${user.email}.`);
+			console.log(`[AUTH] Reset Token: ${token}`);
+			console.log(`[AUTH] Reset URL: ${url}`);
+		},
+	},
+	socialProviders: {
+		google: {
+			clientId: process.env.GOOGLE_CLIENT_ID as string,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+		},
 	},
 	user: {
 		additionalFields: {

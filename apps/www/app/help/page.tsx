@@ -41,13 +41,13 @@ export default function HelpPage() {
       <Navbar />
 
       <section className="pt-36 pb-16 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">Help Center</p>
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">Help Center</p>
+        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
           Frequently Asked Questions
         </h1>
         <p className="mt-6 text-lg text-gray-400 max-w-xl mx-auto">
           Quick answers to the questions we hear most often. Can&apos;t find yours?{' '}
-          <a href="/contact" className="text-indigo-400 hover:underline">
+          <a href="/contact" className="text-blue-400 hover:underline">
             Contact us.
           </a>
         </p>
@@ -58,11 +58,11 @@ export default function HelpPage() {
           {faqs.map((faq) => (
             <div
               key={faq.q}
-              className="bg-white/5 border border-white/10 rounded-2xl p-7 hover:border-indigo-500/30 transition-colors"
+              className="bg-white/5 border border-white/10 rounded-2xl p-7 hover:border-blue-500/30 transition-colors"
             >
               <div className="flex items-start gap-4">
-                <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500/10 shrink-0 mt-0.5">
-                  <HelpCircle className="w-4 h-4 text-indigo-400" />
+                <div className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-500/10 shrink-0 mt-0.5">
+                  <HelpCircle className="w-4 h-4 text-blue-400" />
                 </div>
                 <div>
                   <h2 className="text-base font-semibold text-white mb-2">{faq.q}</h2>
@@ -74,7 +74,7 @@ export default function HelpPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <a href="/support" className="inline-block bg-indigo-600 hover:bg-indigo-500 transition-colors text-white font-medium px-8 py-3 rounded-lg">
+          <a href="/support" className="inline-block bg-blue-600 hover:bg-blue-500 transition-colors text-white font-medium px-8 py-3 rounded-lg">
             Browse All Support Articles
           </a>
         </div>

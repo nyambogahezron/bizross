@@ -30,9 +30,9 @@ const cookies = [
   {
     Icon: Settings2,
     category: 'Functional',
-    badge: 'bg-violet-500/20 text-violet-400',
-    iconColor: 'text-violet-400',
-    iconBg: 'bg-violet-500/10',
+    badge: 'bg-sky-500/20 text-sky-400',
+    iconColor: 'text-sky-400',
+    iconBg: 'bg-sky-500/10',
     desc: 'These cookies enable personalized features, such as remembering your language preference or the region you are in.',
     examples: ['Language preferences', 'UI theme settings', 'Remembered filters'],
   },
@@ -53,7 +53,7 @@ export default function CookiesPage() {
       <Navbar />
 
       <section className="pt-36 pb-8 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">Legal</p>
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">Legal</p>
         <div className="flex items-center justify-center gap-3 mb-4">
           <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-amber-500/10">
             <Cookie className="w-6 h-6 text-amber-400" />
@@ -106,7 +106,7 @@ export default function CookiesPage() {
             href="https://www.allaboutcookies.org"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-indigo-400 hover:underline"
+            className="text-blue-400 hover:underline"
           >
             allaboutcookies.org
           </a>
@@ -116,7 +116,7 @@ export default function CookiesPage() {
         <div className="bg-white/5 border border-white/10 rounded-2xl p-7 text-center">
           <p className="text-gray-400 text-sm">
             Questions about cookies? Email us at{' '}
-            <a href="mailto:privacy@bizross.io" className="text-indigo-400 hover:underline">
+            <a href="mailto:privacy@bizross.io" className="text-blue-400 hover:underline">
               privacy@bizross.io
             </a>
           </p>

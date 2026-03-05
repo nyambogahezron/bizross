@@ -54,8 +54,8 @@ const posts = [
 ];
 
 const tagConfig: Record<string, { label: string; className: string; Icon: React.ElementType }> = {
-  Product: { label: 'Product', className: 'bg-indigo-500/20 text-indigo-400', Icon: Tag },
-  Guide: { label: 'Guide', className: 'bg-violet-500/20 text-violet-400', Icon: BookOpen },
+  Product: { label: 'Product', className: 'bg-blue-500/20 text-blue-400', Icon: Tag },
+  Guide: { label: 'Guide', className: 'bg-sky-500/20 text-sky-400', Icon: BookOpen },
   Business: { label: 'Business', className: 'bg-emerald-500/20 text-emerald-400', Icon: TrendingUp },
 };
 
@@ -65,8 +65,8 @@ export default function BlogPage() {
       <Navbar />
 
       <section className="pt-36 pb-16 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">The BizRoss Blog</p>
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">The BizRoss Blog</p>
+        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
           Insights for growing businesses
         </h1>
         <p className="mt-6 text-lg text-gray-400 max-w-xl mx-auto">
@@ -82,7 +82,7 @@ export default function BlogPage() {
             return (
               <article
                 key={post.title}
-                className="bg-white/5 border border-white/10 rounded-2xl p-7 flex flex-col gap-4 hover:border-indigo-500/40 transition-colors duration-300"
+                className="bg-white/5 border border-white/10 rounded-2xl p-7 flex flex-col gap-4 hover:border-blue-500/40 transition-colors duration-300"
               >
                 <div className="flex items-center justify-between">
                   <span className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full ${cfg.className}`}>

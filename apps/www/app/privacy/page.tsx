@@ -45,10 +45,10 @@ export default function PrivacyPage() {
       <Navbar />
 
       <section className="pt-36 pb-8 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">Legal</p>
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">Legal</p>
         <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-500/10">
-            <ShieldCheck className="w-6 h-6 text-indigo-400" />
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500/10">
+            <ShieldCheck className="w-6 h-6 text-blue-400" />
           </div>
         </div>
         <h1 className="text-5xl font-bold text-white">Privacy Policy</h1>
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
         <div className="mt-12 bg-white/5 border border-white/10 rounded-2xl p-7 text-center">
           <p className="text-gray-400 text-sm">
             Questions about this policy? Email us at{' '}
-            <a href="mailto:privacy@bizross.io" className="text-indigo-400 hover:underline">
+            <a href="mailto:privacy@bizross.io" className="text-blue-400 hover:underline">
               privacy@bizross.io
             </a>
           </p>

@@ -14,16 +14,16 @@ const channels = [
     name: 'Forum',
     desc: 'Ask questions, share workflows, and connect with thousands of merchants using BizRoss.',
     cta: 'Browse Forum',
-    color: 'text-indigo-400',
-    bg: 'bg-indigo-500/10',
+    color: 'text-blue-400',
+    bg: 'bg-blue-500/10',
   },
   {
     Icon: Headphones,
     name: 'Discord',
     desc: 'Real-time chat with the BizRoss team and power users. Get instant answers and share feedback.',
     cta: 'Join Discord',
-    color: 'text-violet-400',
-    bg: 'bg-violet-500/10',
+    color: 'text-sky-400',
+    bg: 'bg-sky-500/10',
   },
   {
     Icon: Twitter,
@@ -49,8 +49,8 @@ export default function CommunityPage() {
       <Navbar />
 
       <section className="pt-36 pb-16 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">Community</p>
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">Community</p>
+        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
           You&apos;re not alone
         </h1>
         <p className="mt-6 text-lg text-gray-400 max-w-xl mx-auto">
@@ -63,7 +63,7 @@ export default function CommunityPage() {
           {channels.map(({ Icon, name, desc, cta, color, bg }) => (
             <div
               key={name}
-              className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:border-indigo-500/40 transition-colors"
+              className="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:border-blue-500/40 transition-colors"
             >
               <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl ${bg}`}>
                 <Icon className={`w-6 h-6 ${color}`} />
@@ -72,7 +72,7 @@ export default function CommunityPage() {
                 <h2 className="text-xl font-semibold text-white mb-2">{name}</h2>
                 <p className="text-sm text-gray-400 leading-relaxed">{desc}</p>
               </div>
-              <button className="self-start bg-indigo-600 hover:bg-indigo-500 transition-colors text-white text-sm font-medium px-5 py-2.5 rounded-lg">
+              <button className="self-start bg-blue-600 hover:bg-blue-500 transition-colors text-white text-sm font-medium px-5 py-2.5 rounded-lg">
                 {cta}
               </button>
             </div>
@@ -87,7 +87,7 @@ export default function CommunityPage() {
           <p className="text-gray-400 mb-6 max-w-md mx-auto">
             We spotlight merchants who go above and beyond to help others. Every quarter we reward our top contributors with swag and Pro plan credits.
           </p>
-          <a href="/contact" className="inline-block border border-indigo-500 text-indigo-400 hover:bg-indigo-500 hover:text-white transition-colors font-medium px-8 py-3 rounded-lg">
+          <a href="/contact" className="inline-block border border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white transition-colors font-medium px-8 py-3 rounded-lg">
             Nominate a Champion
           </a>
         </div>

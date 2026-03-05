@@ -28,14 +28,14 @@ const sections = [
 ];
 
 const highlights = [
-  { Icon: Box, label: 'Products', color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
-  { Icon: ShoppingCart, label: 'Orders', color: 'text-violet-400', bg: 'bg-violet-500/10' },
+  { Icon: Box, label: 'Products', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+  { Icon: ShoppingCart, label: 'Orders', color: 'text-sky-400', bg: 'bg-sky-500/10' },
   { Icon: Users, label: 'Customers', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
   { Icon: BarChart2, label: 'Reports', color: 'text-amber-400', bg: 'bg-amber-500/10' },
   { Icon: Webhook, label: 'Webhooks', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
   { Icon: KeyRound, label: 'Auth', color: 'text-rose-400', bg: 'bg-rose-500/10' },
   { Icon: RefreshCw, label: 'Sync', color: 'text-teal-400', bg: 'bg-teal-500/10' },
-  { Icon: LayoutDashboard, label: 'Dashboard', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+  { Icon: LayoutDashboard, label: 'Dashboard', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
 ];
 
 export default function DocsPage() {
@@ -44,8 +44,8 @@ export default function DocsPage() {
       <Navbar />
 
       <section className="pt-36 pb-16 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">Developer Docs</p>
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-tight">
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">Developer Docs</p>
+        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
           Build with BizRoss
         </h1>
         <p className="mt-6 text-lg text-gray-400 max-w-xl mx-auto">
@@ -70,13 +70,13 @@ export default function DocsPage() {
       <section className="py-4 px-6 max-w-6xl mx-auto grid md:grid-cols-4 gap-10 pb-16">
         {sections.map((section) => (
           <div key={section.title}>
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-blue-400 mb-4">
               {section.title}
             </h2>
             <ul className="flex flex-col gap-2">
               {section.links.map((link) => (
                 <li key={link}>
-                  <button className="text-sm text-gray-300 hover:text-indigo-300 transition-colors text-left">
+                  <button className="text-sm text-gray-300 hover:text-blue-300 transition-colors text-left">
                     {link}
                   </button>
                 </li>

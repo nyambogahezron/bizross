@@ -35,8 +35,8 @@ const values = [
     Icon: Users,
     title: 'Merchant-Centric',
     desc: 'Every feature is shaped by real feedback from the merchants we serve.',
-    color: 'text-indigo-400',
-    bg: 'bg-indigo-500/10',
+    color: 'text-blue-400',
+    bg: 'bg-blue-500/10',
   },
 ];
 
@@ -47,10 +47,10 @@ export default function AboutPage() {
 
       {/* Hero */}
       <section className="pt-36 pb-20 px-6 text-center">
-        <p className="text-sm font-semibold tracking-widest uppercase text-indigo-400 mb-4">
+        <p className="text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">
           Our Story
         </p>
-        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-tight max-w-3xl mx-auto">
+        <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent leading-tight max-w-3xl mx-auto">
           Built for the businesses that power communities
         </h1>
         <p className="mt-6 text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -70,7 +70,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 gap-6">
             {stats.map((stat) => (
               <div key={stat.label} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center">
-                <p className="text-3xl font-bold text-indigo-400">{stat.value}</p>
+                <p className="text-3xl font-bold text-blue-400">{stat.value}</p>
                 <p className="text-sm text-gray-400 mt-1">{stat.label}</p>
               </div>
             ))}
