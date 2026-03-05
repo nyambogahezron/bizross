@@ -5,7 +5,7 @@ import { paymentRoutes } from "./payment.routes";
 import { productRoutes } from "./product.routes";
 import { salesRoutes } from "./sales.routes";
 
-const appRouter = router({
+export const appRouter = router({
 	customer: customerRoutes,
 	inventory: inventoryRoutes,
 	payment: paymentRoutes,

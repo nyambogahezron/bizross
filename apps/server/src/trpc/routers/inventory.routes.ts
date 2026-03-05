@@ -13,17 +13,38 @@ import { z } from "zod";
 import { protectedProcedure, router } from "../";
 
 export const inventoryRoutes = router({
-	getWarehouses: protectedProcedure.query(async ({ ctx }) => {
-		return await getWarehouses(ctx.user.id);
-	}),
+	getWarehouses: protectedProcedure
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/inventory/warehouses",
+				tags: ["inventory"],
+				summary: "Get all warehouses",
+				protect: true,
+			},
+		})
+		.output(z.array(z.any()))
+		.query(async ({ ctx }) => {
+			return await getWarehouses(ctx.user.id);
+		}),
 
 	createWarehouse: protectedProcedure
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/inventory/warehouses",
+				tags: ["inventory"],
+				summary: "Create a new warehouse",
+				protect: true,
+			},
+		})
 		.input(
 			z.object({
 				name: z.string().min(1),
 				isPrimary: z.boolean().optional(),
 			}),
 		)
+		.output(z.any())
 		.mutation(async ({ ctx, input }) => {
 			return await createWarehouse({
 				id: crypto.randomUUID(),
@@ -34,6 +55,15 @@ export const inventoryRoutes = router({
 		}),
 
 	updateWarehouse: protectedProcedure
+		.meta({
+			openapi: {
+				method: "PATCH",
+				path: "/inventory/warehouses/{id}",
+				tags: ["inventory"],
+				summary: "Update a warehouse",
+				protect: true,
+			},
+		})
 		.input(
 			z.object({
 				id: z.string(),
@@ -41,6 +71,7 @@ export const inventoryRoutes = router({
 				isPrimary: z.boolean().optional(),
 			}),
 		)
+		.output(z.any())
 		.mutation(async ({ ctx, input }) => {
 			const { id, ...data } = input;
 			const updated = await updateWarehouse(id, ctx.user.id, data);
@@ -54,7 +85,17 @@ export const inventoryRoutes = router({
 		}),
 
 	deleteWarehouse: protectedProcedure
+		.meta({
+			openapi: {
+				method: "DELETE",
+				path: "/inventory/warehouses/{id}",
+				tags: ["inventory"],
+				summary: "Delete a warehouse",
+				protect: true,
+			},
+		})
 		.input(z.object({ id: z.string() }))
+		.output(z.any())
 		.mutation(async ({ ctx, input }) => {
 			const deleted = await deleteWarehouse(input.id, ctx.user.id);
 			if (!deleted) {
@@ -66,11 +107,31 @@ export const inventoryRoutes = router({
 			return deleted;
 		}),
 
-	getStock: protectedProcedure.query(async ({ ctx }) => {
-		return await getAllStock(ctx.user.id);
-	}),
+	getStock: protectedProcedure
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/inventory/stock",
+				tags: ["inventory"],
+				summary: "Get all stock",
+				protect: true,
+			},
+		})
+		.output(z.array(z.any()))
+		.query(async ({ ctx }) => {
+			return await getAllStock(ctx.user.id);
+		}),
 
 	updateStock: protectedProcedure
+		.meta({
+			openapi: {
+				method: "PATCH",
+				path: "/inventory/stock",
+				tags: ["inventory"],
+				summary: "Update stock levels",
+				protect: true,
+			},
+		})
 		.input(
 			z.object({
 				warehouseId: z.string(),
@@ -79,6 +140,7 @@ export const inventoryRoutes = router({
 				lowStockThreshold: z.number().int().min(0).optional(),
 			}),
 		)
+		.output(z.any())
 		.mutation(async ({ ctx, input }) => {
 			return await updateStock(
 				input.warehouseId,
@@ -88,11 +150,31 @@ export const inventoryRoutes = router({
 			);
 		}),
 
-	getStockMovements: protectedProcedure.query(async ({ ctx }) => {
-		return await getStockMovements(ctx.user.id);
-	}),
+	getStockMovements: protectedProcedure
+		.meta({
+			openapi: {
+				method: "GET",
+				path: "/inventory/stock-movements",
+				tags: ["inventory"],
+				summary: "Get all stock movements",
+				protect: true,
+			},
+		})
+		.output(z.array(z.any()))
+		.query(async ({ ctx }) => {
+			return await getStockMovements(ctx.user.id);
+		}),
 
 	createStockMovement: protectedProcedure
+		.meta({
+			openapi: {
+				method: "POST",
+				path: "/inventory/stock-movements",
+				tags: ["inventory"],
+				summary: "Create a stock movement",
+				protect: true,
+			},
+		})
 		.input(
 			z.object({
 				variantId: z.string(),
@@ -102,6 +184,7 @@ export const inventoryRoutes = router({
 				referenceId: z.string().optional(),
 			}),
 		)
+		.output(z.any())
 		.mutation(async ({ ctx, input }) => {
 			return await recordStockMovement({
 				id: crypto.randomUUID(),

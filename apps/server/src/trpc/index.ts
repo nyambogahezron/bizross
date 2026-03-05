@@ -1,25 +1,26 @@
 import { initTRPC, TRPCError } from "@trpc/server";
+import type { OpenApiMeta } from "trpc-to-openapi";
 import { ZodError } from "zod";
 import type { Context } from "./context";
 
-export const t = initTRPC.context<Context>().create({
-	errorFormatter(opts) {
-		const { shape, error } = opts;
-		return {
-			...shape,
-			data: {
-				...shape.data,
-				zodError:
-					error.code === "BAD_REQUEST" && error.cause instanceof ZodError
-						? error.cause.flatten()
-						: null,
-			},
-		};
-	},
-});
-
-export const router = t.router;
-export const publicProcedure = t.procedure;
+export const t = initTRPC
+	.context<Context>()
+	.meta<OpenApiMeta>()
+	.create({
+		errorFormatter(opts) {
+			const { shape, error } = opts;
+			return {
+				...shape,
+				data: {
+					...shape.data,
+					zodError:
+						error.code === "BAD_REQUEST" && error.cause instanceof ZodError
+							? error.cause.flatten()
+							: null,
+				},
+			};
+		},
+	});
 
 export const protectedProcedure = t.procedure.use(
 	async function isAuthed(opts) {
@@ -35,3 +36,6 @@ export const protectedProcedure = t.procedure.use(
 		});
 	},
 );
+
+export const router = t.router;
+export const publicProcedure = t.procedure;

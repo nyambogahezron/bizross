@@ -1,8 +1,13 @@
+import { swaggerUI } from "@hono/swagger-ui";
+import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { auth } from "./lib/auth";
 import { paymentsRoutes } from "./rest/routes/payments.routes";
 import { subscriptionsRoutes } from "./rest/routes/subscriptions.routes";
+import { createContext } from "./trpc/context";
+import { openApiDocument } from "./trpc/openapi";
+import { appRouter } from "./trpc/routers";
 
 const app = new Hono<{
 	Variables: {
@@ -57,7 +62,30 @@ app.get("/", (c) => {
 	return c.text("Hello World!");
 });
 
+// Serve OpenAPI schema
+app.get("/openapi.json", (c) => {
+	return c.json(openApiDocument);
+});
+
+// Serve Swagger UI
+app.get(
+	"/docs",
+	swaggerUI({
+		url: "/openapi.json",
+	}),
+);
+
+// tRPC route
+app.all("/trpc/*", (c) => {
+	return fetchRequestHandler({
+		endpoint: "/trpc",
+		req: c.req.raw,
+		router: appRouter,
+		createContext,
+	});
+});
+
 export default {
-	app,
+	fetch: app.fetch,
 	port: 5000,
 };
