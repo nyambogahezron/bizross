@@ -1,26 +1,24 @@
 "use client";
 
-import { AlertCircle, ArrowRight, Lock, Mail, User } from "lucide-react";
+import { AlertCircle, ArrowRight, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { signIn, signUp } from "../../lib/auth-client";
+import { signIn } from "../../../lib/auth-client";
 
-export default function SignUp() {
+export default function SignIn() {
 	const router = useRouter();
-	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 
-	const handleSignUp = async (e: React.FormEvent) => {
+	const handleSignIn = async (e: React.FormEvent) => {
 		e.preventDefault();
 		setLoading(true);
 		setError("");
 
-		const { error: err } = await signUp.email({
-			name,
+		const { error: err } = await signIn.email({
 			email,
 			password,
 		});
@@ -63,10 +61,10 @@ export default function SignUp() {
             <span className="text-2xl font-bold text-white">BizRoss</span>
           </div>
           <h2 className="text-4xl font-bold text-white mb-6 leading-tight">
-            Start building amazing things today.
+            Streamline your business operations today.
           </h2>
           <p className="text-blue-100/80 text-lg">
-            Create an account in seconds and unlock the full potential of your business with our comprehensive toolkit.
+            Join thousands of businesses that use BizRoss to manage their workflow, connect with clients, and grow their revenue.
           </p>
         </div>
       </div>
@@ -80,44 +78,21 @@ export default function SignUp() {
 				<div className="w-full max-w-md relative z-10">
 					<div className="text-center mb-10">
 						<h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400 bg-clip-text text-transparent mb-4">
-							Create an account
+							Welcome back
 						</h1>
-						<p className="text-gray-400">
-							Join us to start building amazing things
-						</p>
+						<p className="text-gray-400">Sign in to your account to continue</p>
 					</div>
 
 				<div className="glass bg-white/5 border border-white/10 rounded-2xl p-8 relative overflow-hidden backdrop-blur-xl">
 					<div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent pointer-events-none" />
 
-					<form className="relative z-10 space-y-5" onSubmit={handleSignUp}>
+					<form className="relative z-10 space-y-5" onSubmit={handleSignIn}>
 						{error && (
 							<div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl flex items-start gap-3 text-sm">
 								<AlertCircle className="w-5 h-5 shrink-0" />
 								<p>{error}</p>
 							</div>
 						)}
-
-						<div className="space-y-2">
-							<label
-								className="text-sm font-medium text-gray-300"
-								htmlFor="name"
-							>
-								Full Name
-							</label>
-							<div className="relative">
-								<User className="w-5 h-5 text-gray-500 absolute left-4 top-1/2 -translate-y-1/2" />
-								<input
-									id="name"
-									type="text"
-									required
-									value={name}
-									onChange={(e) => setName(e.target.value)}
-									className="w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 pl-12 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"
-									placeholder="John Doe"
-								/>
-							</div>
-						</div>
 
 						<div className="space-y-2">
 							<label
@@ -141,12 +116,20 @@ export default function SignUp() {
 						</div>
 
 						<div className="space-y-2">
-							<label
-								className="text-sm font-medium text-gray-300"
-								htmlFor="password"
-							>
-								Password
-							</label>
+							<div className="flex items-center justify-between">
+								<label
+									className="text-sm font-medium text-gray-300"
+									htmlFor="password"
+								>
+									Password
+								</label>
+								<Link
+									href="/forgot-password"
+									className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+								>
+									Forgot password?
+								</Link>
+							</div>
 							<div className="relative">
 								<Lock className="w-5 h-5 text-gray-500 absolute left-4 top-1/2 -translate-y-1/2" />
 								<input
@@ -166,7 +149,7 @@ export default function SignUp() {
 							disabled={loading}
 							className="w-full bg-gradient-to-r from-blue-600 to-sky-600 hover:from-blue-500 hover:to-sky-500 text-white font-medium px-4 py-3 rounded-xl transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed mt-2"
 						>
-							{loading ? "Creating account..." : "Sign up"}
+							{loading ? "Signing in..." : "Sign in"}
 							{!loading && (
 								<ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
 							)}
@@ -175,7 +158,7 @@ export default function SignUp() {
 
 					<div className="relative z-10 flex items-center gap-4 my-6">
 						<div className="h-px bg-white/10 flex-1" />
-						<span className="text-xs text-gray-400">or sign up with</span>
+						<span className="text-xs text-gray-400">or continue with</span>
 						<div className="h-px bg-white/10 flex-1" />
 					</div>
 
@@ -208,12 +191,12 @@ export default function SignUp() {
 				</div>
 
 					<p className="text-center text-sm text-gray-400 mt-8">
-						Already have an account?{" "}
+						Don't have an account?{" "}
 						<Link
-							href="/sign-in"
+							href="/sign-up"
 							className="text-blue-400 hover:text-blue-300 transition-colors"
 						>
-							Sign in
+							Sign up
 						</Link>
 					</p>
 				</div>

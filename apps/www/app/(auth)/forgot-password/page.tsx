@@ -3,7 +3,7 @@
 import { AlertCircle, ArrowRight, CheckCircle2, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { requestPasswordReset } from "../../lib/auth-client";
+import { requestPasswordReset } from "../../../lib/auth-client";
 
 export default function ForgotPassword() {
 	const [email, setEmail] = useState("");

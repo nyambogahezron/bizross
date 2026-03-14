@@ -4,7 +4,7 @@ import { AlertCircle, ArrowRight, CheckCircle2, Lock } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { resetPassword } from "../../lib/auth-client";
+import { resetPassword } from "../../../lib/auth-client";
 
 function ResetPasswordForm() {
 	const router = useRouter();
